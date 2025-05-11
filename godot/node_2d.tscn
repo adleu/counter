@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://df4o7u5p0mjyf"]
+
+[ext_resource type="Script" uid="uid://chnsjb3k0b1u6" path="res://app.gd" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://brmk8swljm1vf" path="res://input_handler.gd" id="2_0e48y"]
+[ext_resource type="PackedScene" uid="uid://qsmjm2xwsxsv" path="res://rightClick.tscn" id="3_epypp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtcfe"]
+
+[node name="App" type="Node2D" node_paths=PackedStringArray("label", "right_click", "input_handler")]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+z_index = -65
+script = ExtResource("1_wtcfe")
+label = NodePath("CanvasLayer/Label")
+right_click = NodePath("RightClick")
+input_handler = NodePath("InputHandler")
+
+[node name="InputHandler" type="Node" parent="." node_paths=PackedStringArray("window_handler_node")]
+script = ExtResource("2_0e48y")
+window_handler_node = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wtcfe")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+
+[node name="RightClick" parent="." node_paths=PackedStringArray("wh") instance=ExtResource("3_epypp")]
+visible = false
+wh = NodePath("..")
+
+[connection signal="visibility_changed" from="RightClick" to="RightClick" method="_on_visibility_changed"]

@@ -1,0 +1,113 @@
+[gd_scene load_steps=3 format=3 uid="uid://qsmjm2xwsxsv"]
+
+[sub_resource type="GDScript" id="GDScript_7b2kf"]
+script/source = "extends CanvasLayer
+
+@export var wh : window_handler
+
+func _on_button_reset_pressed() -> void:
+	wh.i = 0
+	wh.label.text = str(wh.i)
+	close()
+
+func _on_button_position_pressed() -> void:
+	var config = ConfigFile.new()
+	config.set_value(\"settings\",\"window_pos\",temp_pos)
+	config.save(\"res://files/conf.cfg\")
+	close()
+	
+func _on_button_back_pressed() -> void:
+	close()
+
+func _on_button_quit_pressed() -> void:
+	wh.quit()
+
+func _on_button_last_iterator_pressed() -> void:
+	var config = ConfigFile.new()
+	var err = config.load(\"res://files/conf.cfg\")
+	if err == OK && config.get_value(\"value\",\"last_value\") != null:
+		wh.i = config.get_value(\"value\",\"last_value\")
+		wh.label.text = str(wh.i)
+	close()
+	
+func close():
+	visible = false
+	wh.label.visible = true
+
+var temp_pos
+
+func _on_visibility_changed() -> void:
+	if visible:
+		temp_pos = get_window().position
+		_clamp_window_to_screen()
+	else:
+		get_window().position = temp_pos
+
+func _clamp_window_to_screen():
+	var window = get_window()
+	var screen_size = DisplayServer.screen_get_size()
+	var screen_index = DisplayServer.window_get_current_screen()
+	var screen_pos = DisplayServer.screen_get_position(screen_index)
+	
+	var window_pos = window.position
+	var window_size = window.size
+	
+	var new_x = clamp(window_pos.x, screen_pos.x, screen_pos.x + screen_size.x - window_size.x)
+	var new_y = clamp(window_pos.y, screen_pos.y, screen_pos.y + screen_size.y - window_size.y)
+	
+	if new_x != window_pos.x || new_y != window_pos.y:
+		window.position = Vector2i(new_x, new_y)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b2kf"]
+bg_color = Color(1, 1, 1, 0)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = SubResource("GDScript_7b2kf")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7b2kf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "reset"
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "save pos"
+
+[node name="Button5" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "last value"
+
+[node name="Button3" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "back"
+
+[node name="Button4" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "quit"
+
+[connection signal="pressed" from="Panel/VBoxContainer/Button" to="." method="_on_button_reset_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button2" to="." method="_on_button_position_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button5" to="." method="_on_button_last_iterator_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button3" to="." method="_on_button_back_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button4" to="." method="_on_button_quit_pressed"]
