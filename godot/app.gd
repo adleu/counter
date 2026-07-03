@@ -6,6 +6,10 @@ class_name window_handler
 @export var right_click 	: CanvasLayer
 @export var input_handler 	: InputHandler
 
+signal window_focus
+signal decrement
+signal increment
+
 const move_speed 	= 10
 var i				= 0
 
@@ -49,9 +53,16 @@ func change_i(add : bool):
 	update_text()
 	Config.set_last_value(i)
 
+	[decrement, increment][int(add)].emit()
+
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		quit()  
+	if what == NOTIFICATION_WM_WINDOW_FOCUS_IN:
+		on_window_focus()
+
+func on_window_focus() :
+	window_focus.emit()
 
 func quit():
 	input_handler.quit_input_handler()

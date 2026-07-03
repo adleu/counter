@@ -4,7 +4,128 @@
 [ext_resource type="Script" uid="uid://brmk8swljm1vf" path="res://input_handler.gd" id="2_0e48y"]
 [ext_resource type="PackedScene" uid="uid://qsmjm2xwsxsv" path="res://rightClick.tscn" id="3_epypp"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4nej"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 16
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtcfe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_epypp"]
+draw_center = false
+
+[sub_resource type="Animation" id="Animation_epypp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.41568628, 0.972549, 0.23921569)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kdubu"]
+resource_name = "decrement"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.992, 0.8), Vector2(1.277, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q6r6c"]
+resource_name = "increment"
+length = 0.13333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03333334, 0.06666667, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.048), Vector2(1.628, 1.7), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0hol4"]
+resource_name = "window_focus_flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.13333333, 0.16666669, 0.26666668, 0.36666667, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0.41568628, 0.972549, 0), Color(0, 0, 0, 0.23921569), Color(0, 0.41568628, 0.972549, 0), Color(0, 0, 0, 0.23921569), Color(0, 0.41568628, 0.972549, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06666667, 0.13065131, 0.16666667, 0.23333333, 0.29379132, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0.003921569, 0.5568628, 0.69411767, 0.7176471), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 0, 0, 0.69803923), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q6r6c"]
+_data = {
+&"RESET": SubResource("Animation_epypp"),
+&"decrement": SubResource("Animation_kdubu"),
+&"increment": SubResource("Animation_q6r6c"),
+&"window_focus_flash": SubResource("Animation_0hol4")
+}
 
 [node name="App" type="Node2D" unique_id=512281123 node_paths=PackedStringArray("label", "right_click", "input_handler")]
 modulate = Color(1, 1, 1, 0)
@@ -21,6 +142,15 @@ window_handler_node = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2144510327]
 
+[node name="ColorRect" type="Panel" parent="CanvasLayer" unique_id=385746515]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j4nej")
+
 [node name="Panel" type="Panel" parent="CanvasLayer" unique_id=222876223]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -32,21 +162,37 @@ size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wtcfe")
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=428142048]
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
+offset_left = -60.0
 offset_top = -11.5
-offset_right = 20.0
+offset_right = 60.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_epypp")
 text = "0"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="WindowFocusAnim" type="AnimationPlayer" parent="CanvasLayer" unique_id=35973914]
+libraries/ = SubResource("AnimationLibrary_q6r6c")
+
+[node name="LabelAnimation" type="AnimationPlayer" parent="CanvasLayer" unique_id=927277717]
+libraries/ = SubResource("AnimationLibrary_q6r6c")
 
 [node name="RightClick" parent="." unique_id=476428273 node_paths=PackedStringArray("wh") instance=ExtResource("3_epypp")]
 visible = false
 wh = NodePath("..")
 
+[connection signal="decrement" from="." to="CanvasLayer/LabelAnimation" method="play" binds= ["decrement"]]
+[connection signal="increment" from="." to="CanvasLayer/WindowFocusAnim" method="play" binds= ["increment"]]
+[connection signal="window_focus" from="." to="CanvasLayer/WindowFocusAnim" method="play" binds= ["window_focus_flash"]]
 [connection signal="visibility_changed" from="RightClick" to="RightClick" method="_on_visibility_changed"]
