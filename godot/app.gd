@@ -28,10 +28,9 @@ func _ready() -> void:
 	get_window().borderless		= true
 	
 	var screen_size = DisplayServer.screen_get_size()
-	var window_size = Vector2i(120, 120)
+	var window_pos 	= Config.try_get_window_pos()
 
-	var window_pos = Config.try_get_window_pos()
-	get_window().position = window_pos if window_pos != null else Vector2i(screen_size.x - window_size.x - 10,  screen_size.y - window_size.y - 10)
+	get_window().position = window_pos if window_pos != null else Vector2i(screen_size.x / 2,  screen_size.y / 2)
 
 	set_to_last_value()
 	
