@@ -2,8 +2,9 @@ extends Node
 class_name InputHandler
 
 @export var window_handler_node : window_handler
-var udp = PacketPeerUDP.new()
-var python_process_id = -1
+
+var udp 				= PacketPeerUDP.new()
+var python_process_id 	= -1
 
 func _ready():
 	udp.bind(9090) 
