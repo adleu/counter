@@ -88,7 +88,10 @@ func on_window_focus() :
 
 func quit():
 	input_handler.quit_input_handler()
-	Config.set_window_pos(get_window().position)
+	
+	if not right_click.visible:
+		Config.set_window_pos(get_window().position)
+
 	get_tree().quit()
 
 func set_to_last_value() :

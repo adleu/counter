@@ -20,6 +20,7 @@ func _on_button_back_pressed() -> void:
 	close()
 
 func _on_button_quit_pressed() -> void:
+	Config.set_window_pos(temp_pos)
 	wh.quit()
 
 func _on_button_last_iterator_pressed() -> void:
