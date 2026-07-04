@@ -36,6 +36,9 @@ func _on_lock_change(active: bool) -> void:
         lock_open.visible       = false
 
 func _on_window_focus():
+    if not app.window_interaction_active :
+        return
+
     _window_focus       = true
     label_input.visible = true
     lock_open.visible   = true
