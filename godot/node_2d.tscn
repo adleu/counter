@@ -3,17 +3,20 @@
 [ext_resource type="Script" uid="uid://chnsjb3k0b1u6" path="res://app.gd" id="1_wtcfe"]
 [ext_resource type="Script" uid="uid://brmk8swljm1vf" path="res://input_handler.gd" id="2_0e48y"]
 [ext_resource type="PackedScene" uid="uid://qsmjm2xwsxsv" path="res://rightClick.tscn" id="3_epypp"]
+[ext_resource type="Script" uid="uid://cv3bav8v26gbn" path="res://view.gd" id="3_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://bpudlid3ftepa" path="res://lock.png" id="4_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://c16k8k6mlljg2" path="res://lock_open.png" id="5_kdubu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4nej"]
 bg_color = Color(0, 0, 0, 0)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-corner_radius_top_left = 64
-corner_radius_top_right = 64
-corner_radius_bottom_right = 64
-corner_radius_bottom_left = 64
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 corner_detail = 16
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtcfe"]
@@ -94,6 +97,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_0hol4"]
 resource_name = "window_focus_flash"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -140,13 +144,23 @@ input_handler = NodePath("InputHandler")
 script = ExtResource("2_0e48y")
 window_handler_node = NodePath("..")
 
+[node name="View" type="Node" parent="." unique_id=1749708885 node_paths=PackedStringArray("lock", "lock_open", "label_input", "app")]
+script = ExtResource("3_q6r6c")
+lock = NodePath("../CanvasLayer/HBoxContainer/Lock")
+lock_open = NodePath("../CanvasLayer/HBoxContainer/Lock2")
+label_input = NodePath("../CanvasLayer/HBoxContainer/F9")
+app = NodePath("..")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2144510327]
 
 [node name="ColorRect" type="Panel" parent="CanvasLayer" unique_id=385746515]
 modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_j4nej")
@@ -162,7 +176,7 @@ size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wtcfe")
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=428142048]
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -180,13 +194,42 @@ theme_override_constants/outline_size = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_epypp")
 text = "0"
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="WindowFocusAnim" type="AnimationPlayer" parent="CanvasLayer" unique_id=35973914]
 libraries/ = SubResource("AnimationLibrary_q6r6c")
 
 [node name="LabelAnimation" type="AnimationPlayer" parent="CanvasLayer" unique_id=927277717]
 libraries/ = SubResource("AnimationLibrary_q6r6c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1125542509]
+propagate_maximum_size = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -53.0
+offset_top = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 9
+alignment = 2
+
+[node name="Lock" type="TextureRect" parent="CanvasLayer/HBoxContainer" unique_id=129707873]
+layout_mode = 2
+texture = ExtResource("4_q6r6c")
+expand_mode = 2
+
+[node name="Lock2" type="TextureRect" parent="CanvasLayer/HBoxContainer" unique_id=1159826391]
+layout_mode = 2
+texture = ExtResource("5_kdubu")
+expand_mode = 2
+
+[node name="F9" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1871079715]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "F9"
+horizontal_alignment = 2
 
 [node name="RightClick" parent="." unique_id=476428273 node_paths=PackedStringArray("wh") instance=ExtResource("3_epypp")]
 visible = false

@@ -21,6 +21,10 @@ func _process(_delta):
 				window_handler_node.change_i(true)
 			"9":
 				window_handler_node.change_i(false)
+			"toggle":
+				window_handler_node.toggle_window_passthrough()
+			_ : 
+				push_warning("unhandeld input argument : '%s'" %input)
 				
 func quit_input_handler() -> void:
 	if python_process_id != -1:

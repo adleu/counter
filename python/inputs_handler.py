@@ -13,6 +13,8 @@ def on_press(key):
             sock.sendto(b"0", (UDP_IP, UDP_PORT))
         elif key.char == '-':
             sock.sendto(b"9", (UDP_IP, UDP_PORT))
+        elif key == keyboard.Key.f9:
+            sock.sendto(b"toggle", (UDP_IP, UDP_PORT))
     except:
         pass
 

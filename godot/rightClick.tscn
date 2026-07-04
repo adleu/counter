@@ -7,6 +7,14 @@ script/source = "extends CanvasLayer
 var wh 			: window_handler
 var temp_pos 	: Vector2i
 
+func _ready() -> void:
+	wh.window_interactable_change.connect(on_window_interactable_change)
+
+func on_window_interactable_change(active : bool) -> void:
+	if not visible:
+		return
+	close()
+
 func _on_button_reset_pressed() -> void:
 	wh.i = 0
 	wh.label.text = str(wh.i)

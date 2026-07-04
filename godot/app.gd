@@ -6,7 +6,9 @@ class_name window_handler
 @export var right_click 	: CanvasLayer
 @export var input_handler 	: InputHandler
 
+signal window_interactable_change(active : bool)
 signal window_focus
+signal window_focus_out
 signal decrement
 signal increment
 
@@ -17,7 +19,11 @@ var i				= 0
 var mouse_pressed 	: bool = false
 var offset			: Vector2i
 
+## window active interactions
+var window_interaction_active : bool = true
+
 func _ready() -> void:
+	get_window().size = Vector2i(32,32)
 	label.text = str(i)
 
 	Input.set_use_accumulated_input(true) 
@@ -81,9 +87,14 @@ func _notification(what):
 		quit()  
 	if what == NOTIFICATION_WM_WINDOW_FOCUS_IN:
 		on_window_focus()
+	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		on_window_focus_out()
 
 func on_window_focus() :
 	window_focus.emit()
+
+func on_window_focus_out() :
+	window_focus_out.emit()
 
 func quit():
 	input_handler.quit_input_handler()
@@ -114,3 +125,11 @@ func clamp_window_to_screen(_offset : float = 0):
 	
 	if new_x != window_pos.x || new_y != window_pos.y:
 		window.position = Vector2i(new_x, new_y)
+
+func toggle_window_passthrough() -> void:
+	window_interaction_active = not window_interaction_active
+	print_debug("toggle window interactable to '%s'" %window_interaction_active)
+	window_interactable_change.emit(window_interaction_active)
+
+	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_MOUSE_PASSTHROUGH, not window_interaction_active)
+	# get_window().set_flag(Window.FLAG_NO_FOCUS, not window_interaction_active)
