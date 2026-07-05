@@ -132,4 +132,6 @@ func toggle_window_passthrough() -> void:
 	window_interactable_change.emit(window_interaction_active)
 
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_MOUSE_PASSTHROUGH, not window_interaction_active)
-	# get_window().set_flag(Window.FLAG_NO_FOCUS, not window_interaction_active)
+
+	## we need this to work on window
+	AllowClickThrough.SetClickThrough(not window_interaction_active)

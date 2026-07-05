@@ -16,12 +16,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="counter"
 run/main_scene="uid://df4o7u5p0mjyf"
-config/features=PackedStringArray("4.7", "GL Compatibility")
+config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Config="*uid://h7hpo3jkg18v"
+AllowClickThrough="*uid://dqqfc33dj1chq"
 
 [display]
 
@@ -30,6 +31,10 @@ window/size/viewport_height=128
 window/size/always_on_top=true
 window/size/transparent=true
 window/per_pixel_transparency/allowed=true
+
+[dotnet]
+
+project/assembly_name="counter"
 
 [rendering]
 
