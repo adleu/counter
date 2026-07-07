@@ -28,8 +28,10 @@ AllowClickThrough="*uid://dqqfc33dj1chq"
 
 window/size/viewport_width=128
 window/size/viewport_height=128
+window/size/resizable=false
 window/size/always_on_top=true
 window/size/transparent=true
+window/subwindows/embed_subwindows=false
 window/per_pixel_transparency/allowed=true
 
 [dotnet]

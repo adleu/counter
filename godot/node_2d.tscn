@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cv3bav8v26gbn" path="res://view.gd" id="3_q6r6c"]
 [ext_resource type="Texture2D" uid="uid://bpudlid3ftepa" path="res://lock.png" id="4_q6r6c"]
 [ext_resource type="Texture2D" uid="uid://c16k8k6mlljg2" path="res://lock_open.png" id="5_kdubu"]
+[ext_resource type="PackedScene" uid="uid://c4h50d0kd46bo" path="res://ValuesEditorWindow.tscn" id="7_d21ai"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4nej"]
 bg_color = Color(0, 0, 0, 0)
@@ -131,10 +132,7 @@ _data = {
 &"window_focus_flash": SubResource("Animation_0hol4")
 }
 
-[node name="App" type="Node2D" unique_id=512281123 node_paths=PackedStringArray("label", "right_click", "input_handler")]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-z_index = -65
+[node name="App" type="Node" unique_id=1772575108 node_paths=PackedStringArray("label", "right_click", "input_handler")]
 script = ExtResource("1_wtcfe")
 label = NodePath("CanvasLayer/Label")
 right_click = NodePath("RightClick")
@@ -231,9 +229,16 @@ theme_override_font_sizes/font_size = 9
 text = "F9"
 horizontal_alignment = 2
 
-[node name="RightClick" parent="." unique_id=476428273 node_paths=PackedStringArray("wh") instance=ExtResource("3_epypp")]
+[node name="RightClick" parent="." unique_id=476428273 node_paths=PackedStringArray("wh", "edit_widow") instance=ExtResource("3_epypp")]
 visible = false
 wh = NodePath("..")
+edit_widow = NodePath("../ValuesEditorWindow")
+
+[node name="ValuesEditorWindow" parent="." unique_id=648774429 node_paths=PackedStringArray("app") instance=ExtResource("7_d21ai")]
+initial_position = 1
+minimize_disabled = true
+maximize_disabled = true
+app = NodePath("..")
 
 [connection signal="decrement" from="." to="CanvasLayer/LabelAnimation" method="play" binds= ["decrement"]]
 [connection signal="increment" from="." to="CanvasLayer/WindowFocusAnim" method="play" binds= ["increment"]]
