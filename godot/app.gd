@@ -9,8 +9,9 @@ class_name window_handler
 signal window_interactable_change(active : bool)
 signal window_focus
 signal window_focus_out
-signal decrement
-signal increment
+signal decrement # call only by change_i
+signal increment # call only by change_i
+signal i_updated # call by increment, decrement and set_i
 
 const move_speed 	= 10
 var i				= 0
@@ -39,6 +40,8 @@ func _ready() -> void:
 	get_window().position = window_pos if window_pos != null else Vector2i(screen_size.x / 2,  screen_size.y / 2)
 
 	set_to_last_value()
+
+	i_updated.connect(_update_link_entry)
 	
 
 func _input(event: InputEvent) -> void:
@@ -81,6 +84,12 @@ func change_i(add : bool):
 	Config.set_last_value(i)
 
 	[decrement, increment][int(add)].emit()
+	i_updated.emit()
+
+func set_i(value : int):
+	i = value
+	i_updated.emit()
+	update_text()
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -105,11 +114,24 @@ func quit():
 	get_tree().quit()
 
 func set_to_last_value() :
-	i = Config.get_last_value()
+	var linked_entry = Config.get_link_entry()
+	if linked_entry == null:
+		i = Config.get_last_value()
+	else :
+		i = DataHandler.get_entry_real_value(linked_entry)
 	update_text()
 
 func update_text() -> void :
 	label.text = str(i)
+
+func _update_link_entry():
+	var linked_entry = Config.get_link_entry()
+	
+	if linked_entry == null :
+		return
+	linked_entry.value = i
+
+	DataHandler.add_or_edit_entry(linked_entry)
 
 func clamp_window_to_screen(_offset : float = 0):
 	var window 			= get_window()

@@ -64,7 +64,6 @@ static func delete_entry(entry : DataEntry) -> void :
     print_debug("Delete request failed, entry not found : ", entry.category, " / ", entry.name)
     
     
-
 static func sort_entries(entries: Array[DataEntry]) -> void:
     entries.sort_custom(func(a: DataEntry, b: DataEntry) -> bool:
         if a.category != b.category:
@@ -73,3 +72,19 @@ static func sort_entries(entries: Array[DataEntry]) -> void:
             return a.name < b.name
         return a.value > b.value
 )
+
+static func entry_exists(entry : DataEntry) -> bool:
+    if entry == null:
+        return false
+
+    for data in load_csv():
+        if data.equals(entry):
+            return true
+
+    return false
+
+static func get_entry_real_value(entry : DataEntry) -> int :
+    for data in load_csv():
+        if data.equals(entry):
+            return data.value
+    return 0

@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://brmk8swljm1vf" path="res://input_handler.gd" id="2_0e48y"]
 [ext_resource type="PackedScene" uid="uid://qsmjm2xwsxsv" path="res://rightClick.tscn" id="3_epypp"]
 [ext_resource type="Script" uid="uid://cv3bav8v26gbn" path="res://view.gd" id="3_q6r6c"]
-[ext_resource type="Texture2D" uid="uid://bpudlid3ftepa" path="res://lock.png" id="4_q6r6c"]
-[ext_resource type="Texture2D" uid="uid://c16k8k6mlljg2" path="res://lock_open.png" id="5_kdubu"]
+[ext_resource type="Texture2D" uid="uid://bpudlid3ftepa" path="res://icons/lock.png" id="4_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://c16k8k6mlljg2" path="res://icons/lock_open.png" id="5_kdubu"]
+[ext_resource type="Texture2D" uid="uid://dpxs211f4h2gv" path="res://icons/link-unlink.svg" id="6_rj586"]
 [ext_resource type="PackedScene" uid="uid://c4h50d0kd46bo" path="res://ValuesEditorWindow.tscn" id="7_d21ai"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4nej"]
@@ -142,12 +143,13 @@ input_handler = NodePath("InputHandler")
 script = ExtResource("2_0e48y")
 window_handler_node = NodePath("..")
 
-[node name="View" type="Node" parent="." unique_id=1749708885 node_paths=PackedStringArray("lock", "lock_open", "label_input", "app")]
+[node name="View" type="Node" parent="." unique_id=1749708885 node_paths=PackedStringArray("lock", "lock_open", "label_input", "app", "link_icon")]
 script = ExtResource("3_q6r6c")
-lock = NodePath("../CanvasLayer/HBoxContainer/Lock")
-lock_open = NodePath("../CanvasLayer/HBoxContainer/Lock2")
-label_input = NodePath("../CanvasLayer/HBoxContainer/F9")
+lock = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer/Lock")
+lock_open = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer/Lock2")
+label_input = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer/F9")
 app = NodePath("..")
+link_icon = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer2/LinkIcon")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2144510327]
 
@@ -199,33 +201,50 @@ libraries/ = SubResource("AnimationLibrary_q6r6c")
 [node name="LabelAnimation" type="AnimationPlayer" parent="CanvasLayer" unique_id=927277717]
 libraries/ = SubResource("AnimationLibrary_q6r6c")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1125542509]
-propagate_maximum_size = false
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=737121521]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -53.0
-offset_top = -14.0
+offset_left = -40.0
+offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_constants/separation = 9
+theme_override_constants/separation = 8
 alignment = 2
 
-[node name="Lock" type="TextureRect" parent="CanvasLayer/HBoxContainer" unique_id=129707873]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=139044254]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+alignment = 2
+
+[node name="LinkIcon" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer2" unique_id=1701046615]
+custom_minimum_size = Vector2(14.615, 12.96)
+layout_mode = 2
+texture = ExtResource("6_rj586")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1125542509]
+propagate_maximum_size = false
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Lock" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=129707873]
 layout_mode = 2
 texture = ExtResource("4_q6r6c")
 expand_mode = 2
 
-[node name="Lock2" type="TextureRect" parent="CanvasLayer/HBoxContainer" unique_id=1159826391]
+[node name="Lock2" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1159826391]
 layout_mode = 2
 texture = ExtResource("5_kdubu")
 expand_mode = 2
 
-[node name="F9" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1871079715]
+[node name="F9" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1871079715]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 11
 text = "F9"
 horizontal_alignment = 2
 
@@ -236,6 +255,7 @@ edit_widow = NodePath("../ValuesEditorWindow")
 
 [node name="ValuesEditorWindow" parent="." unique_id=648774429 node_paths=PackedStringArray("app") instance=ExtResource("7_d21ai")]
 initial_position = 1
+visible = false
 minimize_disabled = true
 maximize_disabled = true
 app = NodePath("..")

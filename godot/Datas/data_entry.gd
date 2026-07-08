@@ -17,4 +17,6 @@ static func from_csv_line(line: PackedStringArray) -> DataEntry:
     return DataEntry.new(line[0], line[1], int(line[2]))
 
 func equals(entry : DataEntry)-> bool :
+    if entry == null:
+        return false
     return entry.category == category and entry.name == name
