@@ -20,3 +20,6 @@ func equals(entry : DataEntry)-> bool :
     if entry == null:
         return false
     return entry.category == category and entry.name == name
+
+func _to_string() -> String :
+    return "[%s,%s,%s]" % [category, name, str(value)]
