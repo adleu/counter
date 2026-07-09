@@ -375,11 +375,12 @@ func _on_item_edited() -> void:
     if column == 0 : # name
         var new_name = item.get_text(0).strip_edges()
         var new_entry = DataEntry.new(old_entry.category, new_name, old_entry.value)
+        var linked_entry = Config.get_link_entry() # we have to get it before the delete or it wont exists anymore and will return null
         DataHandler.delete_entry(old_entry)
         DataHandler.add_or_edit_entry(new_entry)
         item.set_metadata(0, new_entry)
         
-        if old_entry.equals( Config.get_link_entry()) :
+        if old_entry.equals(linked_entry) :
             Config.set_link_entry(new_entry)
     else : #value
         old_entry.value = int(item.get_range(1))
