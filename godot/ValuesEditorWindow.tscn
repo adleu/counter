@@ -134,19 +134,23 @@ size_flags_vertical = 4
 layout_mode = 2
 
 [node name="Copy" type="Button" parent="HSplitContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1083362296]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_constants/icon_max_width = 25
 text = "Copy value"
 icon = ExtResource("2_56vlk")
 flat = true
+text_overrun_behavior = 2
+autowrap_mode = 2
 
 [node name="Link" type="Button" parent="HSplitContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2139672658]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_constants/icon_max_width = 25
 text = "link entry "
 icon = ExtResource("3_ewfg4")
 flat = true
-icon_alignment = 2
+autowrap_mode = 2
 
 [node name="Value" type="Label" parent="HSplitContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=924616367]
 custom_minimum_size = Vector2(64, 64)
