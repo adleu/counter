@@ -140,6 +140,7 @@ theme_override_constants/icon_max_width = 25
 text = "Copy value"
 icon = ExtResource("2_56vlk")
 flat = true
+alignment = 0
 text_overrun_behavior = 2
 autowrap_mode = 2
 
@@ -147,9 +148,10 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_constants/icon_max_width = 25
-text = "link entry "
+text = "Link entry "
 icon = ExtResource("3_ewfg4")
 flat = true
+alignment = 0
 autowrap_mode = 2
 
 [node name="Value" type="Label" parent="HSplitContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=924616367]
