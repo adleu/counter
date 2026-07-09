@@ -1,50 +1,6 @@
 [gd_scene format=3 uid="uid://qsmjm2xwsxsv"]
 
-[sub_resource type="GDScript" id="GDScript_7b2kf"]
-script/source = "extends CanvasLayer
-
-@export 
-var wh 			: window_handler
-var temp_pos 	: Vector2i
-
-@export var edit_widow: Window
-
-func _ready() -> void:
-	wh.window_interactable_change.connect(on_window_interactable_change)
-
-func on_window_interactable_change(active : bool) -> void:
-	if not visible:
-		return
-	close()
-
-func _on_button_reset_pressed() -> void:
-	wh.i.set_i(0)
-	close()
-	
-func _on_button_back_pressed() -> void:
-	close()
-
-func _on_button_quit_pressed() -> void:
-	Config.set_window_pos(temp_pos)
-	wh.quit()
-
-func _on_manage_pressed() -> void:
-	if  edit_widow.visible:
-		edit_widow.close_requested.emit()
-	else:
-		edit_widow.show()
-	
-func close():
-	visible = false
-	wh.label.visible = true
-
-func _on_visibility_changed() -> void:
-	if visible:
-		temp_pos = get_window().position
-		wh.clamp_window_to_screen()
-	else:
-		get_window().position = temp_pos
-"
+[ext_resource type="Script" uid="uid://dmnxmrjert7p5" path="res://right_click_menu.gd" id="1_6o6hn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b2kf"]
 bg_color = Color(1, 1, 1, 0)
@@ -70,8 +26,9 @@ Button/styles/hover = SubResource("StyleBoxEmpty_e8302")
 Button/styles/normal = SubResource("StyleBoxEmpty_s0m1n")
 Button/styles/pressed = SubResource("StyleBoxEmpty_sky1r")
 
-[node name="RightClickMenu" type="CanvasLayer" unique_id=829423191]
-script = SubResource("GDScript_7b2kf")
+[node name="RightClickMenu" type="CanvasLayer" unique_id=829423191 node_paths=PackedStringArray("reset_button")]
+script = ExtResource("1_6o6hn")
+reset_button = NodePath("Panel/VBoxContainer/Reset")
 
 [node name="Panel" type="Panel" parent="." unique_id=1464069142]
 anchors_preset = 15

@@ -5,7 +5,6 @@ class_name AppView
 @export var lock_open       : TextureRect
 @export var label_input     : Label
 @export var app             : window_handler
-
 @export var link_icon       : TextureRect
 
 var show_link_icon := false
@@ -24,7 +23,7 @@ func _ready() -> void:
     _on_link_entry_changed(Config.get_link_entry())
 
 func _on_link_entry_changed(entry : DataEntry) -> void :
-    show_link_icon = entry != null
+    show_link_icon = entry != null    
 
 func _on_lock_change(active: bool) -> void:
     _lock_change_id += 1

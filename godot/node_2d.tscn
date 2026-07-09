@@ -143,12 +143,13 @@ input_handler = NodePath("InputHandler")
 script = ExtResource("2_0e48y")
 window_handler_node = NodePath("..")
 
-[node name="View" type="Node" parent="." unique_id=1749708885 node_paths=PackedStringArray("lock", "lock_open", "label_input", "app", "link_icon")]
+[node name="View" type="Node" parent="." unique_id=1749708885 node_paths=PackedStringArray("lock", "lock_open", "label_input", "app", "reset_button", "link_icon")]
 script = ExtResource("3_q6r6c")
 lock = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer/Lock")
 lock_open = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer/Lock2")
 label_input = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer/F9")
 app = NodePath("..")
+reset_button = NodePath("../RightClick/Panel/VBoxContainer/Reset")
 link_icon = NodePath("../CanvasLayer/VBoxContainer/HBoxContainer2/LinkIcon")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2144510327]
